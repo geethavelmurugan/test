@@ -1,0 +1,34 @@
+{% extends "mainlogin/base.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}Login{% endblock %}
+{% block content %}
+   {% if error %}
+   <p>{{ error }}</p>
+   {% endif %}
+    <table border="2" height="200" width="300">
+            
+            <tr>
+                <td>
+                    <form id="login_form" method="post" action="/login/">
+                    {% csrf_token %}
+                     Username: <input type="text" name="username" value="" size="30" />
+                    <br /><br />
+                     Password: <input type="password" name="password" value="" size="30" />
+                    <br /><br />
+
+                    <input type="submit" value="submit" />
+                    </form>
+                    <br />
+                     New User!!! <a href="/new_user/">Register Here</a><br />
+                     <br/>
+                      <a href="/notes/">Elastic Search</a><br />
+
+                </td>
+            
+        </table>
+        
+
+{% endblock %}
+
+
+

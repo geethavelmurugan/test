@@ -1,0 +1,10 @@
+Field  ___________
+
+Null - True --> activate
+
+   so we should give value. It should not be empty.
+
+
+Null - False --> deactivate
+
+  so we can leave empty field.

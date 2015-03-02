@@ -1,0 +1,87 @@
+{% extends 'mainlogin/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="alert alert-success">You are successfully logged in...<p>Welcome {{ user.username }} !!!</p> </div>
+<a href="/categorypage/">Post Ad</a> <br>
+<a href="/logout/">Log out</a>
+
+    {% if 'start' in path %}
+    
+    <h2>To Buy or Find anything select an option below:</h2>
+    
+    <div class="post">
+    	{% for categories in category %}
+    	
+    	<table border=0>
+	
+	<tr>
+		<td style="height: 20px; width: 35px;">
+		<a href="/addproduct/"><img src="{{ categories.icon }}"></a>
+		</td>
+
+		<td style="height: 20px; width: 200px;">
+		
+		 <a href="/category/{{categories.name}}/{{categories.id}}" style="text-decoration: none;">{{ categories.name }}</a>
+		</td>
+			
+	</tr>
+
+</table>
+
+  {% endfor %}
+</div>
+
+ {% elif categoryname in path %}
+  
+   <h2> Select Subcategory</h2>
+    <div>
+   
+    	{%for subcategories in subcategory%}
+    	<table border=0>
+    		<tr>
+	     <td style="height: 20px; width: 200px;">
+    	
+    	<a href="/subcategory/{{subcategories.name}}/{{ subcategories.id}}" style="text-decoration: none;" >{{subcategories.name}}</a>
+    	</td>
+    	</tr>
+    	</table>
+    	{% endfor %}
+    
+    </div>
+    
+ {% elif subcategoryname in path %}  
+ <div>
+  	<table border=0>
+    		<tr>
+    			<th>Photo</th>
+    			<th>Title</th>
+    			<th>Price</th>
+    			<th>Description</th>
+    		</tr>
+    			
+    			{%for productitem in product%}
+    			<tr>
+	     <td><a href="/addproduct/"><img style="height: 90px; width: 130px" src="{{ STATIC_ROOT }}/{{productitem.photo}}"></a></td>
+    	
+    	<td>{{productitem.title}}</td>
+    	<td>{{productitem.price}}</td>
+    	<td>{{productitem.description}}</td>
+     </tr>
+     {% endfor %}
+    	</table>
+    	
+    </div>
+ 
+    {% endif %}
+    
+   </div>
+
+{% else %}
+<h1>Invalid User..</h1>
+<a href="/new_user/">Register Here</a><br />
+<a href="/">Login</a><br />
+{% endif %}
+{% endblock %}
+
+
+

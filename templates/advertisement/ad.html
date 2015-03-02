@@ -1,0 +1,317 @@
+
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/intlTelInput.css">	
+<!-- <link rel="stylesheet" href="/static/css/demo.css">	 -->	
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/action.js"></script>
+<script src="/static/js/jquery.validate.min.js"></script>
+
+
+<script src="/static/js/jquery.intlTelInput.min.js"></script>
+
+
+</head>
+<body>
+
+{% block content %}
+   {% if success %}
+   <h3> Product successfully Posted </h3>
+   {% endif %}         
+   
+   <h1> Post Free Ad:</h1> 
+   <hr>
+   
+   <form method="post" action="/addproduct/" enctype="multipart/form-data" id="myform">
+   		
+   		{% csrf_token %}
+        
+        <p>
+    	<!--<input type="text" value="{{category}}" disabled="disabled" name="category"> -->
+		<label for="id_category">Choosen Category:</label>
+		<b><img src="{{ categoryicon }}" style="height:27px; width:25px;">{{categoryname}} --> {{subcategoryname}}</b>
+		<a href="/categorypage/" style= "text-decoration: none;"> (Choose Another category)</a>
+		<div style="display: none">
+			<input type="text" value="{{userid}}" name="user">
+			<input type="text" value="{{categoryid}}" name="category">
+			<input type="text" value="{{subid}}" name="subcategory">
+		</div>
+		</p>
+   
+        <p>
+        <label>Type of Ad: *</label>
+        <label for="adtype_0"> <input type="radio" name="addtype" class="adtype" value="seller" required="required"\>Seller</label>
+        <label for="adtype_1"> <input type="radio" name="addtype" class="adtype" value="buyer" required="required"\>Buyer</label>
+        </p>
+        
+        <p>
+        <label>Title*:</label>
+        <input type="text" name= "title" value="" required="required" />
+        </p>
+        
+        <p>
+        <label for="id_photo">Photo:</label>
+        <input type="file" name="photo"  class="photo"  id="photo" value="photo" multiple="multiple"/>
+        </p>
+     
+        <p>
+        <label>Condition: *</label>
+        <label for="Condition_0"> <input type="radio" name="condition" class="Condition" value="used" required="required"\>Used</label>
+        <label for="Condition_1"> <input type="radio" name="condition" class="Condition" value="new" required="required"\>New</label>
+        </p>
+    
+        <p>
+        <label for="id_price">Price:</label>
+        <input type="text" name="price"  value="" placeholder="$"  />
+        </p>
+        
+        <p>
+		<label for="id_city">City: *</label> 
+		<select id="id_city" name="city" required="required">
+		<option selected="selected" value="">--City--</option>
+		{% for cityitem in city %} 
+     		<option value="{{ cityitem.id }}">{{ cityitem.city }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+
+
+        <p>
+		<label for="id_locality">Locality: *</label>
+		<select id="id_locality" name="locality" required="required">
+		<option selected="selected" value="">--Locality--</option>
+		<option value="" style="font-weight: bold;">Pondicherry</option>
+		{% for pondicherrylocalityitem in pondicherrylocality %} 
+     		<option value="{{ pondicherrylocalityitem.id }}">{{ pondicherrylocalityitem.locality }}</option>
+    	{% endfor %}
+    	<option value="" style="font-weight: bold;">Chennai</option>
+		{% for chennailocalityitem in chennailocality %} 
+     		<option value="{{ chennailocalityitem.id }}">{{ chennailocalityitem.locality }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+
+        <p>
+        <label for="id_description">Describe what makes your ad unique: *</label>
+        <textarea type="text" name="description" rows="3" cols="50" required="required">
+        </textarea>
+        </p>
+
+        {% if subid == "1" %}
+        
+         <p>
+		<label for="id_brand">Brand Name: *</label>
+		<select id="id_brand" name="brand" required="required">
+		<option selected="selected" value="">--Select Brand--</option>
+		<option value="" style="font-weight: bold;">Popular Brand Name</option>
+		{% for carbranditem in carbrand %} 
+     		<option value="{{ carbranditem.id }}">{{ carbranditem.carbrand }}</option>
+    	{% endfor %}
+    	<option value="" style="font-weight: bold;">Other Brand Name</option>
+    	{% for carbranditem in carbrand1 %} 
+     		<option value="{{ carbranditem.id }}">{{ carbranditem.carbrand }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+        
+        <p>
+		<label for="id_model">Model:</label>
+		<select id="id_model" name="model" >
+		<option selected="selected" value="">--Select model--</option>
+		<option value="" style="font-weight: bold;">Honda</option>
+		{% for carmodelitem in carmodel %} 
+     		<option value="{{ carmodelitem.id }}">{{ carmodelitem.carmodel }}</option>
+    	{% endfor %}
+    	<option value="" style="font-weight: bold;">Hyundai</option>
+		{% for carmodelitem in carmodel1 %} 
+     		<option value="{{ carmodelitem.id }}">{{ carmodelitem.carmodel }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+        
+        
+		<p>
+		<label for="id_year">Year: *</label>
+		<select id="id_year" name="year" required="required">
+		<option selected="selected" value="">--Select Year--</option>
+		{% for yearitem in year %} 
+     		<option value="{{ yearitem.id }}">{{ yearitem.year }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+		
+		<p>
+		<label>Kmsdriven:</label>
+		<input type="text" name="kmsdriven" value="">
+		</p>
+		
+		<p>
+		<label for="id_color">Color:</label>
+		<select id="id_color" name="color">
+		<option selected="selected" value="">--Select Color--</option>
+		{% for coloritem in color %} 
+     		<option value="{{ coloritem.id }}">{{ coloritem.color }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+		
+		<p>
+		<label for="id_fueltype">Fuel Type:</label>
+		<select id="id_fueltype" name="fueltype">
+		<option selected="selected" value="">--Fuel Type--</option>
+		{% for fueltypeitem in fueltype %} 
+     		<option value="{{ fueltypeitem.id }}">{{ fueltypeitem.fueltype }}</option>
+    	{% endfor %}
+		</select>
+		</p>
+       
+     
+        {% elif subid == "8" %}
+    
+         <p>
+        <label for="id_mobilebrand">Brand Name: *</label>
+        <select id="id_mobilebrand" name="mobilebrandname" required="required">
+        <option selected="selected" >--Select Brand--</option>
+        <option  value="" style="font-weight: bold;">Popular Brand Name:</option>
+        {% for mobilebranditem in mobilebrand1 %} 
+        	<option value="{{ mobilebranditem.id }}">{{ mobilebranditem.mobilebrand }}</option>
+         {% endfor %}
+        <option  value="" style="font-weight: bold;">Other Brand Name:</option>
+        {% for mobilebranditem in mobilebrand2 %} 
+              <option value="{{ mobilebranditem.id}}">{{ mobilebranditem.mobilebrand}}</option>
+        {% endfor %}     
+        </select>
+        </p>
+
+        <p>
+        <label for="id_mobilemodel">Model:</label>
+        <select id="id_mobilemodel" name="mobilemodelname"  >
+        <option selected="selected" >--Select Brand--</option>
+        <option  value="" style="font-weight: bold;">Apple</option>
+        {% for mobilemodelitem in mobilemodel1 %} 
+        	<option value="{{ mobilemodelitem.id }}">{{ mobilemodelitem.mobilemodel }}</option>
+        {% endfor %}
+        <option  value="" style="font-weight: bold;">Blackberry</option>
+        {% for mobilemodelitem in mobilemodel2 %} 
+        	<option value="{{ mobilemodelitem.id}}">{{ mobilemodelitem.mobilemodel}}</option>
+        {% endfor %}     
+        </select>
+        </p>
+            
+        <p>
+        <label for="id_mobile_os">Operating System:</label>
+        <select id="id_mobile_os" name="mobile_os"  >
+        <option selected="selected" >--Select Brand--</option>
+       {% for mobile_ositem in os %} 
+        	<option value="{{ mobile_ositem.id }}">{{ mobile_ositem.os }}</option>
+        {% endfor %}
+        </select>
+        </p>
+        
+        <p>
+        <label for="id_mobile_sim">No of Sim:</label>
+        <select id="id_mobile_sim" name="mobile_sim"  >
+        <option selected="selected" >--Select Brand--</option>
+       {% for mobile_simitem in sim %} 
+        	<option value="{{ mobile_simitem.id }}">{{ mobile_simitem.sim }}</option>
+        {% endfor %}
+        </select>
+        </p>
+        
+        <p>
+        <label for="id_mobile_include">Also include:</label>
+        <select id="id_mobile_include" name="mobile_include"  >
+        <option selected="selected" >--Select Brand--</option>
+       {% for mobile_includeitem in mobileinclude %} 
+        	<option value="{{ mobile_includeitem.id }}">{{ mobile_includeitem.mobileinclude }}</option>
+        {% endfor %}
+        </select>
+        </p>
+       
+        
+        {% elif subid == "9" %}
+        
+        <p>
+        <label for="id_tabletbrandname">Brand Name: *</label>
+        <select id="id_tabletbrandname" name="tabletbrandname" required="required" >
+        <option selected="selected" >--Select Brand--</option>
+        <option  value="" style="font-weight: bold;">Popular Brand Name:</option>
+        {% for tabletbranditem in tabletbrand %} 
+        	<option value="{{ tabletbranditem.id }}">{{ tabletbranditem.tabletbrand }}</option>
+        {% endfor %}
+        <option  value="" style="font-weight: bold;">Other Brand Name:</option>
+        {% for tabletbranditem in tabletbrand1 %} 
+        	<option value="{{ tabletbranditem.id}}">{{ tabletbranditem.tabletbrand}}</option>
+        {% endfor %}     
+        </select>
+        </p>
+    
+        {% elif subid == "10" %}
+    
+        <p>
+        <label for="id_accesstypename">Access Type: *</label>
+        <select id="id_accesstypename" name="accesstypename" required="required" >
+        <option selected="selected" >--Select Brand--</option>
+        <option  value="" style="font-weight: bold;">Popular Accessory Type:/option>
+        {% for accesstypenameitem in accesstype %} 
+        	<option value="{{ accesstypenameitem.id }}">{{ accesstypenameitem.accesstype }}</option>
+        {% endfor %}
+        <option  value="" style="font-weight: bold;">Other Accessory Type:</option>
+        {% for accesstypenameitem in accesstype1 %} 
+        	<option value="{{ accesstypenameitem.id}}">{{ accesstypenameitem.accesstype}}</option>
+        {% endfor %}     
+        </select>
+        </p>
+        
+        
+        <p>
+        <label for="id_accessbrandname">Brand Name: *</label>
+        <select id="id_accessbrandname" name="accessbrandname" required="required" >
+        <option selected="selected" >--Select Brand--</option>
+       {% for accessbrandnameitem in accessbrand %} 
+        	<option value="{{ accessbrandnameitem.id }}">{{ accessbrandnameitem.accessbrand }}</option>
+        {% endfor %}
+        </select>
+        </p>
+      
+		
+        {% endif %}
+       
+        <hr>
+   
+        <label id="seller"> Seller Information</label>
+        <label id="buyer" style="display: none;"> Buyer Information</label>
+   
+        <br>
+   
+        <p>
+        <label>You are: *</label>
+        <label for="id_you_are_0"> <input type="radio" name="you_are" id="id_you_are_0" value="individual" required="required"/>Individual</label>
+        <label for="id_you_are_1"> <input type="radio" name="you_are" id="id_you_are_1"value="dealer" required="required"/>Dealer</label>
+        </p>
+    
+        <p> 
+        <label for="id_you_name">You Name:</label>
+        <input type="text" name="you_name" value=""/>
+        </p>
+        
+        <p>
+        <label for="id_you_email">You Email: *</label>
+        <input type="text" name="you_email" id="you_email"  value="" required="required"/>
+        </p>
+        
+        <p>
+        <label for="id_you_phone">Your Mobile No.</label>
+        <input type="tel" name= "you_phone"  id="mobile-number"   value="" placeholder="Enter 10 digit number"/>
+        </p>
+
+        <input type="submit" value="POST ADD" id="create">
+        <input type="reset" value="RESET" id="reset">   
+   
+   </form>
+{% endblock %}
+</body>    		
+
+</html>
+    
+

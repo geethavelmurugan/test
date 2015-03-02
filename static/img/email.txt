@@ -1,0 +1,19 @@
+jQuery.validator.setDefaults({
+		debug: true,
+		success: "valid"
+		});
+		$( "#myform" ).validate({
+		rules: {
+		you_email: {
+		required: true,
+		email: true
+		}
+		
+
+		}
+});
+
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+        <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>

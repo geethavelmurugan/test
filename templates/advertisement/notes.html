@@ -1,0 +1,21 @@
+{% extends 'mainlogin/base.html' %}
+
+{% block content %}
+<form type="get" action="." class="autocomplete-me">
+    <input type="text" name="q">
+    <button type="submit">Search</button>
+</form>
+
+{% for note in notes %}
+<h1>{{ note.title }}</h1>
+<!-- <p>
+    {{ note.photo }}
+</p>
+ -->
+<p>
+    {{ note.price }}
+</p>
+<p> {{ note.description }} </p>
+
+{% endfor %}
+{% endblock %}

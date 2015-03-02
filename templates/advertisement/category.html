@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+ 
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <title>First Blog</title>
+</head>
+ 
+<body>
+	
+	
+	
+ <div class="container">
+ 	
+ 	{% if 'categorypage' in path %}
+ 	
+    <h1>Select a Category</h1>
+   
+    
+    <div class="post">
+    	{% for catagories in category %}
+    	
+    	<table border=0>
+	
+	<tr>
+		<td style="height: 20px; width: 35px;">
+		<a href="/addproduct/"><img src="{{ catagories.icon }}"></a>
+		</td>
+		
+	
+		
+		
+		
+		<td style="height: 20px; width: 200px;">
+		<a href="/subcategory/{{ catagories.id}}" style="text-decoration: none;" >{{ catagories.name }}</a>
+		</td>
+			
+	</tr>
+
+</table>
+
+  {% endfor %}
+    </div>
+
+    {% else %}
+  
+   <h2> Select Subcategory</h2>
+    <div>
+   
+    	{%for subcategories in subcategory%}
+    	<table border=0>
+    		<tr>
+	     <td style="height: 20px; width: 200px;">
+    	
+    	<a href="/postadd/{{ subcategories.id}}" style="text-decoration: none;" >{{subcategories.name}}</a>
+    	</td>
+    	</tr>
+    	</table>
+    	{% endfor %}
+    
+    </div>
+    
+    {% endif %}
+    
+   </div>
+    
+  
+    
+</body>
+
+</html>
